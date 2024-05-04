@@ -1,8 +1,5 @@
 import streamlit as st
-
-def inicio():
-    st.title('Saludo')
-    st.write('Hola')
+from inicio import inicio
 
 def registro():
     st.title("Inicio de sesión")
