@@ -7,12 +7,12 @@ def simulate_loading(email, password):
         st.success("¡Autenticación exitosa!")
 
 def main():
-    st.title("Página de Carga en Streamlit")
+    st.title("Inicio")
 
     email = st.text_input("Correo electrónico:")
     password = st.text_input("Contraseña:", type="password")
 
-    if st.button("Iniciar carga"):
+    if st.button("Iniciar session"):
         if email and password:
             simulate_loading(email, password)
         else:
