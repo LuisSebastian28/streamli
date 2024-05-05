@@ -14,7 +14,7 @@ def menu():
 
     if selected == "Inicio":
         inicio()
-    if selected == "Chatbot":
+    if selected == "Chatbot":   
         chatbot()
     if selected == "Mi perfil":
         mi_perfil()
