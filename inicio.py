@@ -2,11 +2,12 @@ import streamlit as st
 import requests
 import re
 import google.generativeai as ggi
+from bs4 import BeautifulSoup
+import urllib.parse
 
-
-def generar_lucares_recomendados(destino):
+def generar_busqueda_recomendados(destino, busqueda):
     lugares = []
-    user_quest = "Dame cinco lugares para visitar en " + destino + " Bolivia"
+    user_quest = "Dame diez " + busqueda + " para visitar en " + destino + " Bolivia"
     response_words = []
 
     api_key_gemini="AIzaSyAzFvpz7EfB1RJIN9zT_QwWPMu-pkPYrlI"
@@ -30,47 +31,47 @@ def generar_lucares_recomendados(destino):
             lugares.append(lugar_match.group(1).strip())
     return lugares
 
-def obtener_imagenes_desde_api(query, api_key):
-    url_api = "https://api.pexels.com/v1/search"
+def obtener_url_imagen_google(query):
+    query_encoded = urllib.parse.quote(query)
+    url = f"https://www.google.com/search?tbm=isch&q={query_encoded}"
     headers = {
-        "Authorization": api_key
-    }
-    params = {
-        "query": query
-    }
-
-    try:
-        response = requests.get(url_api, headers=headers, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            return data.get("photos", [])
-        else:
-            st.error(f"Error al obtener imágenes de la API: {response.status_code}")
-            return []
-    except Exception as e:
-        st.error(f"Error al conectarse a la API: {e}")
-        return []
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.content, "html.parser")
+    img_tags = soup.find_all("img")
+    img_urls = [img["src"] for img in img_tags]
+    return img_urls[1]
 
 def inicio():
-    api_key = "wRPPpDBr6VdXCCn5HHihbgztCFG1p22s1UMezGpJn2ck5ndjtZC2GRc3"
     st.title("Inicio")
 
     destino = st.selectbox('Elige una opción', ('cochabamba', 'oruro', 'la paz'), index=0)
 
-    st.header("¡Lo Más Recomendado!")
+    st.header("¡Los Lugares Más Recomendado!")
     st.write("Aquí encontrarás algunas de nuestras recomendaciones principales.")
 
-    lugares = generar_lucares_recomendados(destino)
+    lugares = generar_busqueda_recomendados(destino, "lugares")
 
     for lugar in lugares:
-        query = lugar + "de Bolivia"
-        imagenes = obtener_imagenes_desde_api(query, api_key)
-
-        if imagenes:
-            imagen_url = imagenes[0].get("src", {}).get("large", "")
-            st.image(imagen_url, width=200, caption=lugar, use_column_width=True)
+        query = lugar + " Bolivia"
+        imagen_url = obtener_url_imagen_google(query)
+        if imagen_url:
+            st.image(imagen_url, caption=lugar, use_column_width=True)
         else:
-            st.warning(f"No se encontraron imágenes disponibles para {lugar}.")
+            st.write("No se encontró una imagen para esta comida en Google.")
+
+    st.header("¡Las Comidas Más Recomendadas!")
+    st.write("Aquí encontrarás algunas de nuestras recomendaciones principales.")
+
+    comidas = generar_busqueda_recomendados(destino, "comidas")
+
+    for comida in comidas:
+        query = comida + " Bolivia"
+        imagen_url = obtener_url_imagen_google(query)
+        if imagen_url:
+            st.image(imagen_url, caption=comida, use_column_width=True)
+        else:
+            st.write("No se encontró una imagen para esta comida en Google.")
 
     st.header("Mis Lugares a Visitar")
     st.write("Estos son algunos de los lugares que me gustaría visitar en el futuro:")

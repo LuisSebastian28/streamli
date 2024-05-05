@@ -10,7 +10,7 @@ def inicio_sesion():
         st.session_state["page"] = "account"
 
     def on_click_inicio():
-        if email and password:
+        if email == 'admin' and password == 'admin':
             st.session_state["page"] = "menu"
         else:
             st.warning("Por favor, ingrese su correo electrónico y contraseña.")
