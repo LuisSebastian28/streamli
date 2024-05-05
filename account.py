@@ -1,5 +1,8 @@
 import streamlit as st
 
+def on_click_registrarse():
+    st.session_state["page"] = "inicio de sesion"
+
 def preguntas_usuario():
     st.title("¡Bienvenido a nuestra guía de turismo!")
     st.write("Por favor, responde algunas preguntas para recomendarte lugares turísticos en nuestra ciudad:")
@@ -51,5 +54,15 @@ def preguntas_usuario():
     st.write("- *Transporte preferido:*", transporte_preferido)
     st.write("- *Accesibilidad de los lugares:*", accesibilidad_lugares)
     st.write("- *Preferencia de actividades:*", combinar_actividades)
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("")
+    with col2:
+        st.button("Registrarse", on_click=on_click_registrarse())
+    with col3:
+        st.write("")
+
+
 
 # Aquí podrías agregar la lógica para recomendar lugares basándote en las respuestas del usuario
