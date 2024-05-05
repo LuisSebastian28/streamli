@@ -40,20 +40,16 @@ def preguntas_usuario():
                                      "Prefiero centrarme en un tipo de actividad",
                                      "No tengo preferencia, me adapto a las opciones disponibles"])
 
-    return actividades_interes, tipo_lugares, tiempo_estadia, ubicacion_preferida, gastronomia_local, viaje_grupo, explorar_tours, transporte_preferido, accesibilidad_lugares, combinar_actividades
-
-actividades_interes, tipo_lugares, tiempo_estadia, ubicacion_preferida, gastronomia_local, viaje_grupo, explorar_tours, transporte_preferido, accesibilidad_lugares, combinar_actividades = preguntas_usuario()
-
-st.write("Has seleccionado las siguientes preferencias:")
-st.write("- *Actividades de interés:*", actividades_interes)
-st.write("- *Tipo de lugares preferidos:*", tipo_lugares)
-st.write("- *Tiempo de estadía:*", tiempo_estadia)
-st.write("- *Ubicación preferida de los lugares:*", ubicacion_preferida)
-st.write("- *Preferencia gastronómica:*", gastronomia_local)
-st.write("- *Tipo de viaje:*", viaje_grupo)
-st.write("- *Preferencia de exploración:*", explorar_tours)
-st.write("- *Transporte preferido:*", transporte_preferido)
-st.write("- *Accesibilidad de los lugares:*", accesibilidad_lugares)
-st.write("- *Preferencia de actividades:*", combinar_actividades)
+    st.write("Has seleccionado las siguientes preferencias:")
+    st.write("- *Actividades de interés:*", actividades_interes)
+    st.write("- *Tipo de lugares preferidos:*", tipo_lugares)
+    st.write("- *Tiempo de estadía:*", tiempo_estadia)
+    st.write("- *Ubicación preferida de los lugares:*", ubicacion_preferida)
+    st.write("- *Preferencia gastronómica:*", gastronomia_local)
+    st.write("- *Tipo de viaje:*", viaje_grupo)
+    st.write("- *Preferencia de exploración:*", explorar_tours)
+    st.write("- *Transporte preferido:*", transporte_preferido)
+    st.write("- *Accesibilidad de los lugares:*", accesibilidad_lugares)
+    st.write("- *Preferencia de actividades:*", combinar_actividades)
 
 # Aquí podrías agregar la lógica para recomendar lugares basándote en las respuestas del usuario
