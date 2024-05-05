@@ -1,7 +1,10 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+
 ruta_csv = "google_review_ratings.csv"
 dataframe = pd.read_csv(ruta_csv)
+category_ratings = st.session_state.get("category_ratings", None)
+
 
 # Definir un diccionario para mapear los nombres de las columnas
 nuevos_nombres = {
@@ -81,7 +84,7 @@ valores_nulos = dataframe_rounded.isnull().sum()
 import numpy as np
 
 # Generar calificaciones aleatorias del 1 al 5 para los lugares de interés
-calificaciones = np.random.randint(1, 6, size=18)
+calificaciones = category_ratings
 
 from sklearn.metrics.pairwise import cosine_similarity
 

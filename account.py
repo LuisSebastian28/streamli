@@ -1,68 +1,54 @@
 import streamlit as st
+import google.generativeai as ggi
+
 
 def on_click_registrarse():
-    st.session_state["page"] = "inicio de sesion"
+    st.session_state["page"] = "menu"
+
 
 def preguntas_usuario():
     st.title("¡Bienvenido a nuestra guía de turismo!")
-    st.write("Por favor, responde algunas preguntas para recomendarte lugares turísticos en nuestra ciudad:")
+    st.write(
+        "Por favor, califica tu interés en las siguientes categorías (del 1 al 5):"
+    )
 
-    actividades_interes = st.selectbox("¿Qué tipo de actividades te interesan más durante tus viajes?",
-                                      ["Aventura y deportes extremos", "Arte y cultura", "Naturaleza y ecoturismo",
-                                       "Gastronomía y vinos", "Relax y bienestar", "Historia y patrimonio"])
+    categories = {
+        "Category 1": "Iglesias",
+        "Category 2": "Resorts",
+        "Category 4": "Parques",
+        "Category 5": "Teatros",
+        "Category 6": "Museos",
+        "Category 7": "Centros comerciales",
+        "Category 8": "Zoológicos",
+        "Category 9": "Restaurantes",
+        "Category 10": "Pubs/Bares",
+        "Category 12": "Hamburgueserías/Pizzerías",
+        "Category 13": "Hoteles/Otros alojamientos",
+        "Category 14": "Bares de jugos",
+        "Category 15": "Galerías de arte",
+        "Category 17": "Piscinas",
+        "Category 20": "Belleza y spas",
+        "Category 21": "Cafeterías",
+        "Category 22": "Miradores",
+        "Category 23": "Monumentos",
+        "Category 24": "Jardines",
+    }
 
-    tipo_lugares = st.selectbox("¿Prefieres lugares históricos, naturales o culturales?",
-                                ["Históricos", "Naturales", "Culturales"])
-
-    tiempo_estadia = st.selectbox("¿Cuánto tiempo planeas estar en la ciudad?",
-                                  ["Menos de 3 días", "De 3 a 5 días", "De 1 semana a 10 días", "Más de 10 días"])
-
-    ubicacion_preferida = st.selectbox("¿Tienes alguna preferencia en cuanto a la ubicación de los lugares?",
-                                       ["En el centro de la ciudad", "Cerca de transporte público",
-                                        "En las afueras, en contacto con la naturaleza"])
-
-    gastronomia_local = st.radio("¿Te interesa la gastronomía local y probar platos típicos?",
-                                 ["Sí, me encanta probar la comida local", "Prefiero opciones internacionales y gourmet",
-                                  "No tengo preferencia en este aspecto"])
-
-    viaje_grupo = st.radio("¿Viajas con niños o en grupo?",
-                           ["Con niños", "En grupo", "Actividades orientadas a adultos"])
-
-    explorar_tours = st.radio("¿Te gusta explorar por tu cuenta o prefieres tours guiados?",
-                              ["Explorar por mi cuenta", "Tours guiados", "Una combinación de ambos"])
-
-    transporte_preferido = st.selectbox("¿Hay algún tipo de transporte que prefieras usar?",
-                                        ["Transporte público", "Bicicleta o caminatas", "Autos de alquiler o taxis"])
-
-    accesibilidad_lugares = st.selectbox("¿Tienes alguna restricción o preferencia en cuanto a la accesibilidad de los lugares?",
-                                         ["Accesibles para personas con movilidad reducida",
-                                          "Fácil acceso y poco desnivel", "No tengo restricciones en cuanto a accesibilidad"])
-
-    combinar_actividades = st.radio("¿Te gustaría combinar actividades al aire libre con visitas a museos o sitios históricos?",
-                                    ["Sí, me gusta tener una variedad de actividades",
-                                     "Prefiero centrarme en un tipo de actividad",
-                                     "No tengo preferencia, me adapto a las opciones disponibles"])
-
-    st.write("Has seleccionado las siguientes preferencias:")
-    st.write("- *Actividades de interés:*", actividades_interes)
-    st.write("- *Tipo de lugares preferidos:*", tipo_lugares)
-    st.write("- *Tiempo de estadía:*", tiempo_estadia)
-    st.write("- *Ubicación preferida de los lugares:*", ubicacion_preferida)
-    st.write("- *Preferencia gastronómica:*", gastronomia_local)
-    st.write("- *Tipo de viaje:*", viaje_grupo)
-    st.write("- *Preferencia de exploración:*", explorar_tours)
-    st.write("- *Transporte preferido:*", transporte_preferido)
-    st.write("- *Accesibilidad de los lugares:*", accesibilidad_lugares)
-    st.write("- *Preferencia de actividades:*", combinar_actividades)
+    category_ratings = {}
+    for category, label in categories.items():
+        category_ratings[category] = st.slider(label, 1, 5)
 
     col1, col2, col3 = st.columns(3)
     with col1:
         st.write("")
     with col2:
-        st.button("Registrarse", on_click=on_click_registrarse())
+        st.button(
+            "Registrarse", on_click=on_click_registrarse
+        )  # Remove parentheses here
     with col3:
         st.write("")
+    # Return the category_ratings dictionary
+    st.session_state["category_ratings"] = category_ratings
 
 
-
-# Aquí podrías agregar la lógica para recomendar lugares basándote en las respuestas del usuario
+preguntas_usuario()
