@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from inicio import inicio
 from mi_perfil import mi_perfil
+from chatbot import chatbot
 from inicio_sesion import inicio_sesion
 
 def on_click_registrarse():
@@ -13,6 +14,8 @@ def menu():
 
     if selected == "Inicio":
         inicio()
+    if selected == "Chatbot":
+        chatbot()
     if selected == "Mi perfil":
         mi_perfil()
     if selected == "Cerrar sesion":
